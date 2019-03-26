@@ -42,7 +42,7 @@ public class InternController {
 //       session.persist();
 //       session.merge();
 
-        internRepo ir = new internRepoImpl((Session)sessionFactory);
+        internRepo ir = new internRepoImpl(session);
         ir.save(new Intern("Eugen",18, InternStreams.JAVA));
         return "redirect:/";
     }
