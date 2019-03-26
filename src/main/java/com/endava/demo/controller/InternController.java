@@ -2,7 +2,13 @@ package com.endava.demo.controller;
 
 import com.endava.demo.dao.impl.InternDAOImpl;
 import com.endava.demo.entity.Intern;
+import com.endava.demo.entity.InternStreams;
+import com.endava.demo.internRepo.internRepo;
+import com.endava.demo.internRepo.internRepoImpl;
 import com.endava.demo.service.InternService;
+import org.hibernate.Session;
+import org.hibernate.SessionFactory;
+import org.hibernate.cfg.Configuration;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -15,6 +21,7 @@ public class InternController {
 
     @Autowired
    private InternService internService;
+    private internRepo internRepo;
 
     @GetMapping("/newForm")
     public String secondView(Model model) {
@@ -24,7 +31,19 @@ public class InternController {
 
     @PostMapping(value = "/newForm")
     public String fillForm(@ModelAttribute Intern intern){
-        internService.add(intern);
+        SessionFactory sessionFactory = new Configuration()
+                .addAnnotatedClass(Intern.class)
+                .buildSessionFactory();
+
+        Session session = sessionFactory.openSession();
+
+//       session.save();
+//       session.saveOrUpdate();
+//       session.persist();
+//       session.merge();
+
+        internRepo ir = new internRepoImpl((Session)sessionFactory);
+        ir.save(new Intern("Eugen",18, InternStreams.JAVA));
         return "redirect:/";
     }
     @GetMapping(value = "/delete/{id}")
@@ -48,4 +67,24 @@ public class InternController {
         internService.update(intern);
         return "redirect:/";
     }
+
+//    @GetMapping("/experiment")
+//    public String exp(@ModelAttribute Intern intern)
+//    {
+//        SessionFactory sessionFactory = new Configuration()
+//                .addAnnotatedClass(Intern.class)
+//                .buildSessionFactory();
+//
+//        Session session = sessionFactory.openSession();
+//
+//       session.save();
+//       session.saveOrUpdate();
+//       session.persist();
+//       session.merge();
+//
+//        internRepo ir = new internRepoImpl((Session)sessionFactory);
+//        ir.save(new Intern("Eugen",18, InternStreams.JAVA));
+//        return "/";
+//    }
+
 }
