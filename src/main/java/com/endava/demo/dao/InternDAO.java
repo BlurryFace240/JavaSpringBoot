@@ -13,9 +13,9 @@ public interface InternDAO {
 
     void delete(int id);
 
-    void update(Intern intern);
+    int getId(Intern intern);
 
-    Intern get(int id);
+    Intern getByID(int id);
 
-
+    void update(int id,Intern intern);
 }

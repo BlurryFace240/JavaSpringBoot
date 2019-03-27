@@ -32,13 +32,17 @@ public class InternServiceImpl implements InternService {
      }
 
     @Override
-    public void update(Intern intern)
-    {
-        internDAO.update(intern);
+    public int getID(Intern intern) {
+        return internDAO.getId(intern);
     }
 
     @Override
-    public Intern get(int id) {
-        return internDAO.get(id);
+    public Intern getByID(int id) {
+        return internDAO.getByID(id);
+    }
+
+    @Override
+    public void update(int id, Intern intern) {
+        internDAO.update(id,intern);
     }
 }

@@ -2,6 +2,7 @@ package com.endava.demo.service;
 
 import com.endava.demo.entity.Intern;
 
+import javax.persistence.criteria.CriteriaBuilder;
 import java.util.List;
 
 public interface InternService {
@@ -11,7 +12,9 @@ public interface InternService {
 
     public void remove(int id);
 
-    public void update(Intern intern);
+    public int getID(Intern intern);
 
-    public Intern get(int id);
+    public Intern getByID(int id);
+
+    public void update(int id, Intern intern);
 }

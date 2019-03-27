@@ -54,37 +54,23 @@ public class InternController {
         return  "redirect:/";
     }
 
+    static int id=0;
     @GetMapping(value = "/update/{id}")
-    public String displayIntern(@PathVariable int id, Model model)
+    public String displayIntern(@ModelAttribute Intern intern,Model model)
     {
-        model.addAttribute("intern",internService.get(id-1));
+        System.err.println(intern);
+        id=intern.getId();
+        System.err.println(id);
+        model.addAttribute("intern",internService.getByID(intern.getId()));
         return "update";
     }
 
     @PostMapping(value = "/update/{id}")
     public String updateIntern(@ModelAttribute Intern intern)
     {
-        internService.update(intern);
+        System.err.println(intern);
+        System.err.println(id);
+        internService.update(id,intern);
         return "redirect:/";
     }
-
-//    @GetMapping("/experiment")
-//    public String exp(@ModelAttribute Intern intern)
-//    {
-//        SessionFactory sessionFactory = new Configuration()
-//                .addAnnotatedClass(Intern.class)
-//                .buildSessionFactory();
-//
-//        Session session = sessionFactory.openSession();
-//
-//       session.save();
-//       session.saveOrUpdate();
-//       session.persist();
-//       session.merge();
-//
-//        internRepo ir = new internRepoImpl((Session)sessionFactory);
-//        ir.save(new Intern("Eugen",18, InternStreams.JAVA));
-//        return "/";
-//    }
-
 }

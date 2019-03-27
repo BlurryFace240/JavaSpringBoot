@@ -18,10 +18,10 @@ public class InternDAOImpl implements InternDAO {
     private static List<Intern> internList = new ArrayList<>();
 
     static {
-        internList.add(new Intern(1, "Mihaela", 21, JAVA));
-        internList.add(new Intern(2, "Eugen", 18, JAVA));
-        internList.add(new Intern(3, "Xenia", 19, JAVA));
-        internList.add(new Intern(4, "Denisa", 21, ANALYST));
+        internList.add(new Intern(1,"Mihaela", 21, JAVA));
+        internList.add(new Intern( 2,"Eugen", 18, JAVA));
+        internList.add(new Intern( 3,"Xenia", 19, JAVA));
+        internList.add(new Intern( 4,"Denisa", 21, ANALYST));
     }
 
     @Override
@@ -54,13 +54,22 @@ public class InternDAOImpl implements InternDAO {
     }
 
     @Override
-    public void update(Intern intern) {
-        internList.set(intern.getId()-1,intern);
+    public int getId(Intern intern) {
+        return internList.indexOf(intern);
     }
 
     @Override
-    public Intern get(int id) {
-        return internList.get(id);
+    public Intern getByID(int id) {
+        for (Intern i:internList) {
+            if (i.getId()==id)
+                return i;
+        }
+        return null;
+    }
+
+    @Override
+    public void update(int id,Intern intern) {
+        internList.set(getId(getByID(id)),intern);
     }
 }
 

@@ -5,6 +5,6 @@ import com.endava.demo.entity.Intern;
 import java.util.List;
 
 public interface internRepo {
-//    List<Intern> getAll();
+    List<Intern> getAll();
     public void save(Intern intern);
 }
