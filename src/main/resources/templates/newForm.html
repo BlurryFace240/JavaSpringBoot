@@ -8,6 +8,7 @@
     Here the second Form
 
 <form th:action="@{/newForm}" th:object="${intern}" method="post">
+    <input type="text" th:field="*{id}" th:value="${intern.getId()+1}" hidden/><br/>
     Name: <input type="text" th:field="*{name}" /><br/>
     Age: <input type="text" th:field="*{age}"/><br/>
     Stream: <input type="text" th:field="*{stream}"/>

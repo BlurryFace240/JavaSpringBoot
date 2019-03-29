@@ -1,26 +1,28 @@
 package com.endava.demo.entity;
 
-import javax.persistence.Entity;
-import javax.persistence.Id;
+import javax.persistence.*;
 
 @Entity
+@Table(name="intern")
 public class Intern {
     @Id
+    @GeneratedValue (strategy = GenerationType.AUTO)
     private int id;
+
+    @Column(name="name",unique = false,nullable = false)
     private String name;
+
+    @Column(name="age",unique = false,nullable = false)
     private int age;
+    
+    @Column(name = "stream",unique = false,nullable = false)
+    @Enumerated(EnumType.STRING)
     private InternStreams stream;
 
     public Intern() {}
 
-    public Intern(String name, int age, InternStreams stream) {
-        this.name = name;
-        this.age = age;
-        this.stream = stream;
-    }
-
-    public Intern(int id, String name, int age, InternStreams stream) {
-        this.id = id;
+    public Intern(int id,String name, int age, InternStreams stream) {
+        this.id=id;
         this.name = name;
         this.age = age;
         this.stream = stream;

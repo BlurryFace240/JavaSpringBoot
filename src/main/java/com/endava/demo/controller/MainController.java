@@ -1,6 +1,7 @@
 package com.endava.demo.controller;
 
 import com.endava.demo.service.InternService;
+import com.endava.demo.internRepo.internRepo;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;

@@ -12,8 +12,6 @@ public interface InternService {
 
     public void remove(int id);
 
-    public int getID(Intern intern);
-
     public Intern getByID(int id);
 
     public void update(int id, Intern intern);

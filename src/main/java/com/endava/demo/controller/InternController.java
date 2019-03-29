@@ -1,18 +1,15 @@
 package com.endava.demo.controller;
 
-import com.endava.demo.dao.impl.InternDAOImpl;
 import com.endava.demo.entity.Intern;
-import com.endava.demo.entity.InternStreams;
 import com.endava.demo.internRepo.internRepo;
-import com.endava.demo.internRepo.internRepoImpl;
 import com.endava.demo.service.InternService;
-import org.hibernate.Session;
-import org.hibernate.SessionFactory;
-import org.hibernate.cfg.Configuration;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.*;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
 
 import static com.endava.demo.entity.InternStreams.NET;
 
@@ -25,31 +22,18 @@ public class InternController {
 
     @GetMapping("/newForm")
     public String secondView(Model model) {
-        model.addAttribute("intern", new Intern("Serghei", 27, NET));
+        model.addAttribute("intern", new Intern(1,"Serghei", 27, NET));
         return "newForm";
     }
 
     @PostMapping(value = "/newForm")
     public String fillForm(@ModelAttribute Intern intern){
-        SessionFactory sessionFactory = new Configuration()
-                .addAnnotatedClass(Intern.class)
-                .buildSessionFactory();
-
-        Session session = sessionFactory.openSession();
-
-//       session.save();
-//       session.saveOrUpdate();
-//       session.persist();
-//       session.merge();
-
-        internRepo ir = new internRepoImpl(session);
-        ir.save(new Intern("Eugen",18, InternStreams.JAVA));
+        internService.add(intern);
         return "redirect:/";
     }
     @GetMapping(value = "/delete/{id}")
     public String deleteIntern(@PathVariable int id)
     {
-
         internService.remove(id);
         return  "redirect:/";
     }
@@ -58,18 +42,15 @@ public class InternController {
     @GetMapping(value = "/update/{id}")
     public String displayIntern(@ModelAttribute Intern intern,Model model)
     {
-        System.err.println(intern);
         id=intern.getId();
         System.err.println(id);
-        model.addAttribute("intern",internService.getByID(intern.getId()));
+        model.addAttribute("intern",internService.getByID(id));
         return "update";
     }
 
     @PostMapping(value = "/update/{id}")
     public String updateIntern(@ModelAttribute Intern intern)
     {
-        System.err.println(intern);
-        System.err.println(id);
         internService.update(id,intern);
         return "redirect:/";
     }
