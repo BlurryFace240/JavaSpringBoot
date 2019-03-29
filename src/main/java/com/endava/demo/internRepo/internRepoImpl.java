@@ -1,16 +1,10 @@
 package com.endava.demo.internRepo;
 
 import com.endava.demo.entity.Intern;
-import com.endava.demo.entity.InternStreams;
-import com.fasterxml.jackson.annotation.JsonBackReference;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.hibernate.Transaction;
 import org.hibernate.cfg.Configuration;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.beans.factory.annotation.Qualifier;
-import org.springframework.context.annotation.AnnotationConfigApplicationContext;
-import org.springframework.context.annotation.Bean;
 import org.springframework.stereotype.Repository;
 
 import java.util.ArrayList;
@@ -88,7 +82,6 @@ public class internRepoImpl implements internRepo {
             intern.setName(intern_aux.getName());
             intern.setAge(intern_aux.getAge());
             intern.setStream(intern_aux.getStream());
-            //session.update(student);//No need to update manually as it will be updated automatically on transaction close.
             session.getTransaction().commit();
             session.close();
 
